@@ -11,14 +11,16 @@ from langchain.vectorstores import FAISS
 
 from dotenv import load_dotenv
 
-load_dotenv()
-
+os.environ['OPENAI_API_KEY']='YOUR_API_KEY_HERE'
+llm = OpenAI(temperature=0.9, max_tokens=500)
 
 st.title("News Research Langchain Model")
 
 st.sidebar.title("Article URLs")
 
 filepath = "faissmodelnew"
+
+embeddings = OpenAIEmbeddings()
 
 urls=[]
 for i in range(3):
@@ -47,7 +49,7 @@ if process_url_clicked:
 
     #create emberddings and load FAISS
 
-    embeddings = OpenAIEmbeddings()
+    
 
     vectorstore_openai = FAISS.from_documents(docs, embeddings)
     main_placeholder.text("Embedding Vector Started Building..........Started✅✅✅✅✅")
